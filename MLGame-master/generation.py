@@ -47,10 +47,38 @@ def newGen(RK1, RK2, RK3, RK4):
     rk2 = Snake()
     rk3 = Snake()
     rk4 = Snake()
-    rk1.copySnake(RK1)
-    rk1.copySnake(RK2)
-    rk1.copySnake(RK3)
-    rk1.copySnake(RK4)
+
+    for i in range(0, 16):
+        for j in range(0, 24):
+            rk1.L2_weight[i][j] = RK1.L2_weight[i][j]
+            rk1.L2_bias[i][j] = RK1.L2_bias[i][j]
+            rk2.L2_weight[i][j] = RK2.L2_weight[i][j]
+            rk2.L2_bias[i][j] = RK2.L2_bias[i][j]
+            rk3.L2_weight[i][j] = RK3.L2_weight[i][j]
+            rk3.L2_bias[i][j] = RK3.L2_bias[i][j]
+            rk4.L2_weight[i][j] = RK4.L2_weight[i][j]
+            rk4.L2_bias[i][j] = RK4.L2_bias[i][j]
+    for i in range(0, 16):
+        for j in range(0, 16):
+            rk1.L3_weight[i][j] = RK1.L3_weight[i][j]
+            rk1.L3_bias[i][j] = RK1.L3_bias[i][j]
+            rk2.L3_weight[i][j] = RK2.L3_weight[i][j]
+            rk2.L3_bias[i][j] = RK2.L3_bias[i][j]
+            rk3.L3_weight[i][j] = RK3.L3_weight[i][j]
+            rk3.L3_bias[i][j] = RK3.L3_bias[i][j]
+            rk4.L3_weight[i][j] = RK4.L3_weight[i][j]
+            rk4.L3_bias[i][j] = RK4.L3_bias[i][j]
+            
+    for i in range(0, 4):
+        for j in range(0, 16):
+            rk1.L4_weight[i][j] = RK1.L4_weight[i][j]
+            rk1.L4_bias[i][j] = RK1.L4_bias[i][j]
+            rk2.L4_weight[i][j] = RK2.L4_weight[i][j]
+            rk2.L4_bias[i][j] = RK2.L4_bias[i][j]
+            rk3.L4_weight[i][j] = RK3.L4_weight[i][j]
+            rk3.L4_bias[i][j] = RK3.L4_bias[i][j]
+            rk4.L4_weight[i][j] = RK4.L4_weight[i][j]
+            rk4.L4_bias[i][j] = RK4.L4_bias[i][j]
     
     for i in range(0, 5):
         snakeList.append(rk1)

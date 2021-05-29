@@ -54,21 +54,21 @@ class Snake:
         for i in range(0, 16):
             for j in range(0, 24):
                 if(random.random() < 0.1):
-                    self.L2_weight[i][j] = random.random()
+                    self.L2_weight[i][j] = self.L2_weight[i][j] + random.uniform(-1, 1)/3
                 if(random.random() < 0.1):
-                    self.L2_bias[i][j] = random.random()
+                    self.L2_bias[i][j] = self.L2_bias[i][j] + random.uniform(-1, 1)/3
         for i in range(0, 16):
             for j in range(0, 16):
                 if(random.random() < 0.1):
-                    self.L3_weight[i][j] = random.random()
+                    self.L3_weight[i][j] = self.L3_weight[i][j] + random.uniform(-1, 1)/3
                 if(random.random() < 0.1):
-                    self.L3_bias[i][j] = random.random()
+                    self.L3_bias[i][j] = self.L3_bias[i][j] + random.uniform(-1, 1)/3
         for i in range(0, 4):
             for j in range(0, 16):
                 if(random.random() < 0.1):
-                    self.L4_weight[i][j] = random.random()
+                    self.L4_weight[i][j] = self.L4_weight[i][j] + random.uniform(-1, 1)/3
                 if(random.random() < 0.1):
-                    self.L4_bias[i][j] = random.random()
+                    self.L4_bias[i][j] = self.L4_bias[i][j] + random.uniform(-1, 1)/3
     
     def random_gen(self):
         for i in self.L2_weight:
