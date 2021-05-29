@@ -21,7 +21,7 @@ class MLPlay:
         return 1 + self.A_star_H(a, b)
 
     def search_path(self, a, b):
-        return 1
+        pass
 
     def update(self, scene_info):
         """
@@ -34,20 +34,20 @@ class MLPlay:
         snake_body = scene_info["snake_body"]
         food = scene_info["food"]
 
-        grid = np.zeros((30, 30))
+        self.grid = np.zeros((30, 30))
         # 0:empty
         # 1:head
         # 2:body
         # 3:food
         # 4:tail
 
-        grid[int(snake_head[0]/10)][int(snake_head[1]/10)] = 1
+        self.grid[int(snake_head[0]/10)][int(snake_head[1]/10)] = 1
         for i in snake_body:
-            grid[int(i[0]/10)][int(i[1]/10)] = 2
-        grid[int(food[0]/10)][int(food[1]/10)] = 3
-        grid[int(snake_body[-1][0]/10)][int(snake_body[-1][1]/10)] = 4
-        grid = grid.T
-        print(grid)
+            self.grid[int(i[0]/10)][int(i[1]/10)] = 2
+        self.grid[int(food[0]/10)][int(food[1]/10)] = 3
+        self.grid[int(snake_body[-1][0]/10)][int(snake_body[-1][1]/10)] = 4
+        self.grid = self.grid.T
+        print(self.grid)
         command = "UP"
 
         if snake_head[0] > food[0]:

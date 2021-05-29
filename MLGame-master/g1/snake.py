@@ -3,7 +3,6 @@ import random
 
 class Snake:
     def __init__(self):
-        self.historyScore = []
         self.score = 0
         self.L2_weight = np.zeros((16, 24))
         self.L2_bias = np.zeros((16, 24))
@@ -25,50 +24,8 @@ class Snake:
                 self.L4_weight[i][j] = random.random()
                 self.L4_bias[i][j] = random.random()
 
-    def copySnake(self, copy):
-        for i in range(0, 16):
-            for j in range(0, 24):
-                self.L2_weight[i][j] = copy.L2_weight[i][j]
-                self.L2_bias[i][j] = copy.L2_bias[i][j]
-        for i in range(0, 16):
-            for j in range(0, 16):
-                self.L3_weight[i][j] = copy.L3_weight[i][j]
-                self.L3_bias[i][j] = copy.L3_bias[i][j]
-        for i in range(0, 4):
-            for j in range(0, 16):
-                self.L4_weight[i][j] = copy.L4_weight[i][j]
-                self.L4_bias[i][j] = copy.L4_bias[i][j]
-        self.historyScore = []
-        self.score = 0
-        self.leftStep = 300
 
-    def remake(self):
-        self.historyScore.append(self.score)
-        self.score = 0
-        self.leftStep = 300
-
-    def getAvgScore(self):
-        return np.mean(self.historyScore)
-
-    def mutate(self):
-        for i in range(0, 16):
-            for j in range(0, 24):
-                if(random.random() < 0.1):
-                    self.L2_weight[i][j] = random.random()
-                if(random.random() < 0.1):
-                    self.L2_bias[i][j] = random.random()
-        for i in range(0, 16):
-            for j in range(0, 16):
-                if(random.random() < 0.1):
-                    self.L3_weight[i][j] = random.random()
-                if(random.random() < 0.1):
-                    self.L3_bias[i][j] = random.random()
-        for i in range(0, 4):
-            for j in range(0, 16):
-                if(random.random() < 0.1):
-                    self.L4_weight[i][j] = random.random()
-                if(random.random() < 0.1):
-                    self.L4_bias[i][j] = random.random()
+        
     
     def random_gen(self):
         for i in self.L2_weight:

@@ -99,7 +99,6 @@ class MLPlay:
         for i in snake_body:
             self.grid[int(i[0]/10)][int(i[1]/10)] = 2
         self.grid[int(food[0]/10)][int(food[1]/10)] = 3
-        self.grid[int(snake_body[-1][0]/10)][int(snake_body[-1][1]/10)] = 4
         self.grid = self.grid.T
         # print(self.grid)
         command = "UP"
