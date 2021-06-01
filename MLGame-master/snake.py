@@ -104,6 +104,56 @@ class Snake:
         L3out = self.layer_3(L2out)
         L4out = self.layer_4(L3out)
 
+        if input[0] <= 0:
+            L4out[2] = L4out[2] + 0.1
+            L4out[3] = L4out[3] + 0.1
+            if input[14] != 0:
+                L4out[2] = L4out[2] + 0.1
+                L4out[3] = L4out[3] + 0.1
+            if input[18] <= 0:
+                L4out[3] = L4out[3] + 0.2
+            if input[6] <= 1:
+                L4out[2] = L4out[2] + 0.2
+        if input[6] <= 1:
+            L4out[0] = L4out[0] + 0.1
+            L4out[1] = L4out[1] + 0.1
+            if input[20] != 0:
+                L4out[0] = L4out[0] + 0.1
+                L4out[1] = L4out[1] + 0.1
+            if input[0] <= 0:
+                L4out[1] = L4out[1] + 0.2
+            if input[12] <= 1:
+                L4out[0] = L4out[0] + 0.2
+        if input[12] <= 1:
+            L4out[2] = L4out[2] + 0.1
+            L4out[3] = L4out[3] + 0.1
+            if input[2] != 0:
+                L4out[2] = L4out[2] + 0.1
+                L4out[3] = L4out[3] + 0.1
+            if input[6] <= 1:
+                L4out[2] = L4out[2] + 0.2
+            if input[18] <= 0:
+                L4out[3] = L4out[3] + 0.2
+        if input[18] <= 0:
+            L4out[0] = L4out[0] + 0.1
+            L4out[1] = L4out[1] + 0.1
+            if input[8] != 0:
+                L4out[0] = L4out[0] + 0.1
+                L4out[1] = L4out[1] + 0.1
+            if input[12] <= 1:
+                L4out[0] = L4out[0] + 0.2
+            if input[0] <= 0:
+                L4out[1] = L4out[1] + 0.2
+
+        if input[1] > 0:
+            L4out[0] = L4out[0] + 0.1
+        if input[7] > 0:
+            L4out[3] = L4out[3] + 0.1
+        if input[13] > 0:
+            L4out[1] = L4out[1] + 0.1
+        if input[19] > 0:
+            L4out[2] = L4out[2] + 0.1
+
         if(max(L4out) == L4out[0]):
             return "UP"
         if(max(L4out) == L4out[1]):

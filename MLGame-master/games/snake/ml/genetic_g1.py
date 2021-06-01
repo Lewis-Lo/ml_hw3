@@ -10,7 +10,7 @@ class MLPlay:
         Constructor
         """
         self.grid = np.zeros((30, 30))
-        self.s1 = pickle.load(open("Snake_g1_s20.pickle", "rb")) # 7 9 20    13
+        self.s1 = Snake() #pickle.load(open("Snake_g1_s20.pickle", "rb")) # 7 9 20    13
         self.preFoodPos = [0, 0]
         self.index = 0
         self.index_s = 0
@@ -22,6 +22,7 @@ class MLPlay:
         """
         if scene_info["status"] == "GAME_OVER":
             self.s1.leftStep = 300
+            self.s1 = Snake()
             # if(self.s1.getScore() >= 0.27 and round(self.s1.getScore(), 2) != 1.26 and round(self.s1.getScore(), 2) != 1.05):
             #     self.index_s = self.index_s + 1
             #     pickle.dump(self.s1, open("Snake_g1_s{}.pickle".format(self.index_s), 'wb'))
@@ -50,7 +51,7 @@ class MLPlay:
             self.s1.getApple()
         
         command = self.s1.move(self.s1.sensor(self.grid))
-
+        print(command)
         return command
     def reset(self):
         """
