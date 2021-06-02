@@ -15,10 +15,13 @@ class MLPlay:
         self.s = Snake()
         self.sList = []
         self.generation = 8
-        self.snakeIndex = 0
+        self.Index = 17
         self.tgrid = np.zeros((30, 30)) 
         self.preFood = [0, 0]
         self.dir = "DOWN"
+        self.features = []
+        self.target = []
+        self.model = pickle.load(open("mlp.pickle", "rb"))
         pass
 
     def update(self, scene_info):
@@ -42,7 +45,10 @@ class MLPlay:
             # self.sList.append(self.s)
             # self.s.score = 0
             # print("Generation:{} Snake:{}".format(self.generation, self.snakeIndex))
-
+            if len(scene_info["snake_body"]) >= 40:
+                pickle.dump(self.features, open("log_{}.pickle".format(self.Index), "wb"))
+                self.Index = self.Index + 1
+            self.features = []
             self.state = 1
             self.dir = "DOWN"
             return "RESET"
@@ -110,6 +116,36 @@ class MLPlay:
             command = "RIGHT"
             self.state = 2
 
+        data = np.zeros((1, 5))
+        data[0, 0] = int(snake_head[0])
+        data[0, 1] = int(snake_head[1])
+        data[0, 2] = int(food[0])
+        data[0, 3] = int(food[0])
+        if self.dir == "UP":
+            data[0, 4] = 0
+        if self.dir == "DOWN":
+            data[0, 4] = 1
+        if self.dir == "LEFT":
+            data[0, 4] = 2
+        if self.dir == "RIGHT":
+            data[0, 4] = 3
+
+        data = data[0, [0, 1, 2, 3, 4]].reshape(1, -1)   
+
+        commandm = self.model.predict(data)
+
+        if commandm == 0:
+            commandm = "UP"
+        if commandm == 1:
+            commandm = "DOWN"
+        if commandm == 2:
+            commandm = "LEFT"
+        if commandm == 3:
+            commandm = "RIGHT"
+
+        print(command, commandm)
+
+
         if self.dir == "DOWN":
             if (command != "DOWN" or command != "UP"):
                 self.dir = command
@@ -122,6 +158,9 @@ class MLPlay:
         elif self.dir == "LEFT":
             if (command != "RIGHT" or command != "LEFT"):
                 self.dir = command
+
+        self.features.append([self.state, snake_head[0], snake_head[1], food[0], food[1], self.dir, command])
+
 
         return command
 
