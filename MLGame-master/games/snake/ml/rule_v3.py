@@ -19,6 +19,7 @@ class MLPlay:
         self.tgrid = np.zeros((30, 30)) 
         self.preFood = [0, 0]
         self.dir = "DOWN"
+        self.preDir = "DOWN"
         self.features = []
         self.target = []
         self.model = pickle.load(open("mlp.pickle", "rb"))
@@ -29,28 +30,13 @@ class MLPlay:
         Generate the command according to the received scene information
         """
         if scene_info["status"] == "GAME_OVER":
-            # self.tgrid = np.zeros((30, 30)) 
-            # print("SnakeScore:", self.s.score)
-            # self.snakeIndex = self.snakeIndex + 1
-            # if self.snakeIndex > 2000:
-            #     self.generation = self.generation + 1
-            #     self.snakeIndex = 1
-            #     newGen(self.sList, self.generation)
-            #     self.sList.clear()
-
-            # if(self.generation == 0):
-            #     self.generation = 1
-            #     self.snakeIndex = 1
-            # self.s = pickle.load(open("Snake_g{}_{}.pickle".format(self.generation, self.snakeIndex), "rb"))
-            # self.sList.append(self.s)
-            # self.s.score = 0
-            # print("Generation:{} Snake:{}".format(self.generation, self.snakeIndex))
             if len(scene_info["snake_body"]) >= 40:
                 pickle.dump(self.features, open("log_{}.pickle".format(self.Index), "wb"))
                 self.Index = self.Index + 1
             self.features = []
             self.state = 1
             self.dir = "DOWN"
+            self.preDir = "DOWN"
             return "RESET"
 
         snake_head = scene_info["snake_head"]
@@ -144,7 +130,7 @@ class MLPlay:
             commandm = "RIGHT"
 
         print(command, commandm)
-
+        self.preDir = self.dir
 
         if self.dir == "DOWN":
             if (command != "DOWN" or command != "UP"):
@@ -159,7 +145,7 @@ class MLPlay:
             if (command != "RIGHT" or command != "LEFT"):
                 self.dir = command
 
-        self.features.append([self.state, snake_head[0], snake_head[1], food[0], food[1], self.dir, command])
+        self.features.append([self.state, snake_head[0], snake_head[1], food[0], food[1], self.preDir, command])
 
 
         return command

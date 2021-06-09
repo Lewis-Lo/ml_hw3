@@ -32,6 +32,10 @@ for i in range(0, np.shape(data)[0]):
     elif data[i][6] == "RIGHT":
         data[i][6] = 3  
 
+for i in range(1, np.shape(data)[0]):
+    data[i][5] = data[i-1][5]
+data = data[1:]
+
 x = np.zeros((np.shape(data)[0], np.shape(data)[1] - 2))
 y = np.zeros(np.shape(data)[0])
 for i in range(0, np.shape(data)[0]):
@@ -41,12 +45,8 @@ for i in range(0, np.shape(data)[0]):
 
 xTrain, xTest, yTrain, yTest = train_test_split(x, y, test_size=0.33, random_state=42)
 
-clf = MLPClassifier(solver="lbfgs", hidden_layer_sizes=(2, 16), random_state=1)
-clf.fit(xTrain, yTrain)
-print(clf.score(xTest, yTest))
+dtc = DecisionTreeClassifier()
+dtc.fit(xTrain, yTrain)
+print(dtc.score(xTest, yTest))
 
-# dtc = DecisionTreeClassifier()
-# dtc.fit(xTrain, yTrain)
-# print(dtc.score(xTest, yTest))
-
-pickle.dump(clf, open("mlp.pickle", "wb"))
+# pickle.dump(clf, open("mlp.pickle", "wb"))
